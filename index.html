@@ -5,6 +5,7 @@
     <title>БУМЗ - Создание персонажа</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
         body { 
             margin: 0; 
@@ -95,6 +96,53 @@
             font-size: 20px;
             user-select: none;
         }
+        /* Стили для линейки */
+        #ruler-tool {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            z-index: 10000;
+            background: rgba(0,0,0,0.7);
+            padding: 5px;
+            border-radius: 5px;
+            display: none; /* Скрыта по умолчанию */
+        }
+        #ruler-handle {
+            width: 20px;
+            height: 20px;
+            background: #F00;
+            border-radius: 50%;
+            cursor: move;
+            margin-bottom: 5px;
+        }
+        #ruler-container {
+            display: flex;
+            border-bottom: 1px solid #F00;
+            height: 15px;
+            align-items: flex-end;
+        }
+        .ruler-mark {
+            height: 5px;
+            width: 1px;
+            background: #F00;
+            position: relative;
+        }
+        .ruler-mark.large {
+            height: 10px;
+        }
+        .ruler-mark.extra-large {
+            height: 15px;
+            width: 2px;
+        }
+        .ruler-label {
+            position: absolute;
+            top: 16px;
+            left: -10px;
+            color: white;
+            font-size: 10px;
+            width: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -144,6 +192,14 @@
         <div class="mobile-btn" id="btn-shoot">⚡</div>
     </div>
 
+    <!-- Инструмент линейки -->
+    <div id="ruler-tool">
+        <div id="ruler-handle" title="Двойной клик - сменить цвет"></div>
+        <div id="ruler-container"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         // Игровые данные
         const gameData = {
@@ -162,7 +218,8 @@
                 up: false,
                 down: false,
                 charging: false
-            }
+            },
+            rulerVisible: false
         };
 
         // Проверка мобильного устройства
@@ -242,6 +299,63 @@
             new Phaser.Game(config);
         }
 
+        // Инициализация линейки
+        function initRulerTool() {
+            const rulerContainer = document.getElementById('ruler-container');
+            rulerContainer.innerHTML = '';
+            
+            // Создаем метки на линейке (100 пикселей)
+            for (let i = 0; i <= 100; i++) {
+                const mark = document.createElement('div');
+                mark.className = 'ruler-mark';
+                
+                // Каждые 10 пикселей - большая метка с цифрой
+                if (i % 10 === 0) {
+                    mark.classList.add('extra-large');
+                    const label = document.createElement('div');
+                    label.className = 'ruler-label';
+                    label.textContent = i;
+                    mark.appendChild(label);
+                } 
+                // Каждые 5 пикселей - средняя метка
+                else if (i % 5 === 0) {
+                    mark.classList.add('large');
+                }
+                
+                rulerContainer.appendChild(mark);
+            }
+            
+            // Делаем инструмент перемещаемым
+            $("#ruler-tool").draggable({
+                handle: "#ruler-handle",
+                containment: "window"
+            });
+            
+            // Делаем линейку изменяемой по ширине
+            $("#ruler-container").resizable({
+                handles: "e, w",
+                minWidth: 100,
+                maxWidth: 800,
+                resize: function() {
+                    initRulerTool(); // Пересоздаем метки при изменении размера
+                }
+            });
+            
+            // Смена цвета по двойному клику
+            const colors = ['red', 'blue', 'white', 'black'];
+            let colorIndex = 0;
+            
+            $("#ruler-handle").on('dblclick', function() {
+                colorIndex = (colorIndex + 1) % colors.length;
+                const color = colors[colorIndex];
+                
+                $("#ruler-container").css('border-bottom-color', color);
+                $(".ruler-mark").css('background', color);
+                $(".ruler-label").css('color', color);
+                $(this).css('background', color);
+            });
+        }
+
         // Мобильное управление
         function setupMobileControls() {
             document.getElementById('btn-left').addEventListener('touchstart', () => gameData.controls.left = true);
@@ -287,7 +401,16 @@
             this.input.keyboard.on('keydown-SPACE', () => gameData.controls.charging = true);
             this.input.keyboard.on('keyup-SPACE', () => fireWeapon.call(this));
             
+            // Горячая клавиша для линейки (R)
+            this.input.keyboard.on('keydown-R', () => {
+                gameData.rulerVisible = !gameData.rulerVisible;
+                document.getElementById('ruler-tool').style.display = gameData.rulerVisible ? 'block' : 'none';
+            });
+            
             if (isMobile) setupMobileControls();
+            
+            // Инициализация линейки
+            initRulerTool();
             
             // Текст информации
             gameData.infoText = this.add.text(10, 10, '', { 
@@ -333,7 +456,8 @@
                 `Пол: ${gameData.character.gender === 'male' ? 'Мужской' : 'Женский'}`,
                 `Угол: ${gameData.character.angle.toFixed(1)}°`,
                 `Сила: ${gameData.character.power}%`,
-                `Управление: ${isMobile ? 'Сенсорное' : 'Клавиатура'}`
+                `Управление: ${isMobile ? 'Сенсорное' : 'Клавиатура'}`,
+                `Линейка: [R] ${gameData.rulerVisible ? 'ВКЛ' : 'ВЫКЛ'}`
             ]);
         }
 
