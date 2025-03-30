@@ -12,36 +12,43 @@
             font-family: Arial, sans-serif;
             background-color: #222;
             color: white;
+            touch-action: manipulation;
         }
         #game-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: relative;
+            width: 100vw;
             height: 100vh;
         }
         .auth-form, .char-form {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .form-container {
             background: rgba(0, 0, 0, 0.7);
             padding: 20px;
             border-radius: 10px;
             text-align: center;
+            width: 80%;
             max-width: 500px;
-            margin: 0 auto;
         }
         input, button, select {
             margin: 10px;
-            padding: 8px;
+            padding: 10px;
+            width: 80%;
             border-radius: 5px;
             border: none;
-            width: 80%;
         }
         button {
             background: #4CAF50;
             color: white;
             cursor: pointer;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background: #45a049;
         }
         .hidden {
             display: none;
@@ -69,19 +76,42 @@
             object-fit: cover;
             border-radius: 50%;
         }
+        .mobile-controls {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            z-index: 100;
+        }
+        .mobile-btn {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            user-select: none;
+        }
     </style>
 </head>
 <body>
-    <div id="game-container">
-        <div id="auth-screen" class="auth-form">
+    <!-- Экран авторизации -->
+    <div id="auth-screen">
+        <div class="form-container">
             <h2>Авторизация</h2>
             <input type="text" id="username" placeholder="Логин">
             <input type="password" id="password" placeholder="Пароль">
             <button id="login-btn">Войти</button>
             <p id="error-msg" style="color: red;"></p>
         </div>
-        
-        <div id="char-screen" class="char-form hidden">
+    </div>
+
+    <!-- Экран создания персонажа -->
+    <div id="char-screen" class="hidden">
+        <div class="form-container">
             <h2>Создание персонажа</h2>
             <input type="text" id="char-name" placeholder="Имя персонажа">
             
@@ -100,49 +130,57 @@
             <button id="create-char-btn">Создать персонажа</button>
             <p id="char-error-msg" style="color: red;"></p>
         </div>
-        
-        <div id="game-screen" class="hidden"></div>
     </div>
-    
+
+    <!-- Игровой экран -->
+    <div id="game-container"></div>
+
+    <!-- Мобильные контролы -->
+    <div class="mobile-controls" id="mobile-controls">
+        <div class="mobile-btn" id="btn-left">←</div>
+        <div class="mobile-btn" id="btn-right">→</div>
+        <div class="mobile-btn" id="btn-up">↑</div>
+        <div class="mobile-btn" id="btn-down">↓</div>
+        <div class="mobile-btn" id="btn-shoot">⚡</div>
+    </div>
+
     <script>
-        // Хранилище данных
+        // Игровые данные
         const gameData = {
             currentUser: null,
             character: {
                 name: "",
-                gender: "male"
+                gender: "male",
+                x: 400,
+                y: 300,
+                angle: 0,
+                power: 0
+            },
+            controls: {
+                left: false,
+                right: false,
+                up: false,
+                down: false,
+                charging: false
             }
         };
 
-        // Элементы интерфейса
-        const authScreen = document.getElementById('auth-screen');
-        const charScreen = document.getElementById('char-screen');
-        const gameScreen = document.getElementById('game-screen');
-        const usernameInput = document.getElementById('username');
-        const passwordInput = document.getElementById('password');
-        const loginBtn = document.getElementById('login-btn');
-        const errorMsg = document.getElementById('error-msg');
-        const charNameInput = document.getElementById('char-name');
-        const createCharBtn = document.getElementById('create-char-btn');
-        const charErrorMsg = document.getElementById('char-error-msg');
+        // Проверка мобильного устройства
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+        if (!isMobile) document.getElementById('mobile-controls').style.display = 'none';
 
-        // Инициализация Telegram WebApp
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-        tg.enableClosingConfirmation();
-
-        // Обработчик входа
-        loginBtn.addEventListener('click', () => {
-            const username = usernameInput.value.trim();
-            const password = passwordInput.value.trim();
+        // Обработчики авторизации
+        document.getElementById('login-btn').addEventListener('click', () => {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
             
             if (!username || !password) {
-                errorMsg.textContent = "Введите логин и пароль";
+                document.getElementById('error-msg').textContent = "Введите логин и пароль";
                 return;
             }
             
             if (password.length < 4) {
-                errorMsg.textContent = "Пароль должен быть не менее 4 символов";
+                document.getElementById('error-msg').textContent = "Пароль должен быть не менее 4 символов";
                 return;
             }
             
@@ -160,11 +198,11 @@
         }
 
         // Создание персонажа
-        createCharBtn.addEventListener('click', () => {
-            const charName = charNameInput.value.trim();
+        document.getElementById('create-char-btn').addEventListener('click', () => {
+            const charName = document.getElementById('char-name').value.trim();
             
             if (!charName) {
-                charErrorMsg.textContent = "Введите имя персонажа";
+                document.getElementById('char-error-msg').textContent = "Введите имя персонажа";
                 return;
             }
             
@@ -174,75 +212,157 @@
 
         // Переход к созданию персонажа
         function startCharacterCreation() {
-            authScreen.classList.add('hidden');
-            charScreen.classList.remove('hidden');
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('char-screen').classList.remove('hidden');
         }
 
         // Запуск игры
         function startGame() {
-            charScreen.classList.add('hidden');
-            gameScreen.classList.remove('hidden');
+            document.getElementById('char-screen').classList.add('hidden');
             
             const config = {
                 type: Phaser.AUTO,
                 width: 800,
                 height: 600,
-                parent: 'game-screen',
+                parent: 'game-container',
+                physics: {
+                    default: 'arcade',
+                    arcade: { 
+                        gravity: { y: 0 },
+                        debug: false
+                    }
+                },
                 scene: {
                     preload: preload,
                     create: create,
                     update: update
-                },
-                physics: {
-                    default: 'arcade',
-                    arcade: { gravity: { y: 0 } }
                 }
             };
             
             new Phaser.Game(config);
         }
 
-        // Phaser сцены
+        // Мобильное управление
+        function setupMobileControls() {
+            document.getElementById('btn-left').addEventListener('touchstart', () => gameData.controls.left = true);
+            document.getElementById('btn-right').addEventListener('touchstart', () => gameData.controls.right = true);
+            document.getElementById('btn-up').addEventListener('touchstart', () => gameData.controls.up = true);
+            document.getElementById('btn-down').addEventListener('touchstart', () => gameData.controls.down = true);
+            document.getElementById('btn-shoot').addEventListener('touchstart', () => gameData.controls.charging = true);
+            
+            document.getElementById('btn-left').addEventListener('touchend', () => gameData.controls.left = false);
+            document.getElementById('btn-right').addEventListener('touchend', () => gameData.controls.right = false);
+            document.getElementById('btn-up').addEventListener('touchend', () => gameData.controls.up = false);
+            document.getElementById('btn-down').addEventListener('touchend', () => gameData.controls.down = false);
+            document.getElementById('btn-shoot').addEventListener('touchend', fireWeapon);
+        }
+
         function preload() {
+            // Загрузка ассетов
             this.load.image('player', `assets/player_${gameData.character.gender}.png`);
+            this.load.image('weapon', 'assets/weapon.png');
+            this.load.image('bullet', 'assets/bullet.png');
+            this.load.image('background', 'assets/background.png');
         }
 
         function create() {
-            // Отображение информации о персонаже
-            this.add.text(100, 50, `Игрок: ${gameData.currentUser}`, { 
-                font: "24px Arial", 
-                fill: "#ffffff" 
-            });
+            // Фон
+            this.add.image(0, 0, 'background').setOrigin(0);
             
-            this.add.text(100, 100, `Персонаж: ${gameData.character.name}`, { 
-                font: "32px Arial", 
-                fill: "#4CAF50" 
-            });
+            // Игрок
+            gameData.character.sprite = this.physics.add.sprite(
+                gameData.character.x, 
+                gameData.character.y, 
+                'player'
+            );
+            gameData.character.sprite.setCollideWorldBounds(true);
+            gameData.character.sprite.setScale(0.5);
             
-            // Создание персонажа
-            const player = this.physics.add.sprite(400, 300, 'player');
-            player.setScale(0.5);
+            // Оружие
+            gameData.character.weapon = this.add.sprite(0, 0, 'weapon');
+            gameData.character.weapon.setScale(0.5);
             
             // Управление
             this.cursors = this.input.keyboard.createCursorKeys();
+            this.input.keyboard.on('keydown-SPACE', () => gameData.controls.charging = true);
+            this.input.keyboard.on('keyup-SPACE', () => fireWeapon.call(this));
+            
+            if (isMobile) setupMobileControls();
+            
+            // Текст информации
+            gameData.infoText = this.add.text(10, 10, '', { 
+                font: '16px Arial', 
+                fill: '#ffffff' 
+            });
         }
 
         function update() {
-            if (this.cursors.left.isDown) {
-                player.setVelocityX(-200);
-            } else if (this.cursors.right.isDown) {
-                player.setVelocityX(200);
-            } else {
-                player.setVelocityX(0);
+            // Движение
+            const speed = 200;
+            let velocityX = 0;
+            let velocityY = 0;
+            
+            if (this.cursors.left.isDown || gameData.controls.left) velocityX = -speed;
+            if (this.cursors.right.isDown || gameData.controls.right) velocityX = speed;
+            if (this.cursors.up.isDown || gameData.controls.up) velocityY = -speed;
+            if (this.cursors.down.isDown || gameData.controls.down) velocityY = speed;
+            
+            gameData.character.sprite.setVelocity(velocityX, velocityY);
+            
+            // Поворот оружия
+            if (this.cursors.up.isDown || gameData.controls.up) gameData.character.angle -= 2;
+            if (this.cursors.down.isDown || gameData.controls.down) gameData.character.angle += 2;
+            gameData.character.angle = Phaser.Math.Angle.WrapDegrees(gameData.character.angle);
+            
+            // Позиция оружия
+            gameData.character.weapon.setPosition(
+                gameData.character.sprite.x + Math.cos(Phaser.Math.DegToRad(gameData.character.angle)) * 30,
+                gameData.character.sprite.y + Math.sin(Phaser.Math.DegToRad(gameData.character.angle)) * 30
+            );
+            gameData.character.weapon.setRotation(Phaser.Math.DegToRad(gameData.character.angle));
+            
+            // Зарядка выстрела
+            if (gameData.controls.charging && gameData.character.power < 100) {
+                gameData.character.power += 1;
             }
+            
+            // Обновление информации
+            gameData.infoText.setText([
+                `Игрок: ${gameData.currentUser}`,
+                `Персонаж: ${gameData.character.name}`,
+                `Пол: ${gameData.character.gender === 'male' ? 'Мужской' : 'Женский'}`,
+                `Угол: ${gameData.character.angle.toFixed(1)}°`,
+                `Сила: ${gameData.character.power}%`,
+                `Управление: ${isMobile ? 'Сенсорное' : 'Клавиатура'}`
+            ]);
+        }
 
-            if (this.cursors.up.isDown) {
-                player.setVelocityY(-200);
-            } else if (this.cursors.down.isDown) {
-                player.setVelocityY(200);
-            } else {
-                player.setVelocityY(0);
-            }
+        function fireWeapon() {
+            if (!gameData.controls.charging) return;
+            
+            // Создание пули
+            const bullet = this.physics.add.sprite(
+                gameData.character.sprite.x,
+                gameData.character.sprite.y,
+                'bullet'
+            );
+            bullet.setScale(0.5);
+            
+            // Расчет траектории
+            const velocityX = Math.cos(Phaser.Math.DegToRad(gameData.character.angle)) * gameData.character.power * 5;
+            const velocityY = Math.sin(Phaser.Math.DegToRad(gameData.character.angle)) * gameData.character.power * 5;
+            
+            bullet.setVelocity(velocityX, velocityY);
+            bullet.setRotation(Phaser.Math.DegToRad(gameData.character.angle));
+            
+            // Ограничение времени жизни пули
+            this.time.delayedCall(2000, () => {
+                bullet.destroy();
+            });
+            
+            // Сброс параметров
+            gameData.character.power = 0;
+            gameData.controls.charging = false;
         }
     </script>
 </body>
