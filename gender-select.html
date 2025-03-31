@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>БУМЗ - Выбор пола</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/gender.css">
+</head>
+<body>
+    <div class="gender-container">
+        <h1>Выберите пол персонажа</h1>
+        <div class="gender-options">
+            <div class="gender-option" data-gender="male">
+                <img src="assets/images/male-character.png" alt="Мужской персонаж">
+                <button id="male-btn">Мужской</button>
+            </div>
+            <div class="gender-option" data-gender="female">
+                <img src="assets/images/female-character.png" alt="Женский персонаж">
+                <button id="female-btn">Женский</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/storage.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/gender-select.js"></script>
+</body>
+</html>
