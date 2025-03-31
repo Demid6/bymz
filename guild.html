@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>БУМЗ - Гильдия</title>
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: white;
+            background-image: url('assets/guild_bg.jpg');
+            background-size: cover;
+        }
+        .character-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px; /* Сместили в левый угол */
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px; /* Закругленные углы */
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .character-icon img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px; /* Меньшие закругленные углы для изображения */
+        }
+        .character-icon span {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: rgba(76, 175, 80, 0.7);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .guild-container {
+            max-width: 800px;
+            margin: 80px auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .guild-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #55aaff;
+            text-shadow: 2px 2px 4px #000;
+            text-align: center;
+        }
+        .guild-info {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        .guild-description {
+            flex: 2;
+            padding-right: 20px;
+        }
+        .guild-stats {
+            flex: 1;
+            background: rgba(85, 170, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .quests {
+            margin-top: 30px;
+        }
+        .quest-card {
+            background: rgba(50, 50, 50, 0.8);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .quest-card:hover {
+            background: rgba(85, 170, 255, 0.3);
+        }
+        .quest-title {
+            font-size: 20px;
+            color: #55aaff;
+            margin-bottom: 10px;
+        }
+        .quest-reward {
+            color: gold;
+            margin: 10px 0;
+        }
+        .accept-button {
+            background: #55aaff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .members {
+            margin-top: 40px;
+        }
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .member-card {
+            background: rgba(50, 50, 50, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .member-card img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="location.href='game_play.html'">Назад</button>
+    
+    <div class="character-icon" id="character-icon">
+        <!-- Заполняется JavaScript -->
+    </div>
+
+    <div class="guild-container">
+        <h1 class="guild-title">Гильдия Искателей Приключений</h1>
+        
+        <div class="guild-info">
+            <div class="guild-description">
+                <p>Добро пожаловать в Гильдию Искателей Приключений! Здесь вы можете получать задания, находить союзников и повышать свой рейтинг среди других авантюристов.</p>
+                <p>Ваш текущий ранг: <strong>Новичок</strong></p>
+            </div>
+            <div class="guild-stats">
+                <h3>Ваша статистика:</h3>
+                <p>Выполнено заданий: <span id="completed-quests">0</span></p>
+                <p>Текущий рейтинг: <span id="guild-rating">100</span></p>
+                <p>Золота заработано: <span id="earned-gold">0</span></p>
+            </div>
+        </div>
+        
+        <div class="quests">
+            <h2>Доступные задания:</h2>
+            <div class="quest-card">
+                <h3 class="quest-title">Охота на гоблинов</h3>
+                <p>Уничтожьте 5 гоблинов в окрестных лесах.</p>
+                <p class="quest-reward">Награда: 50 золота, +10 рейтинга</p>
+                <button class="accept-button">Принять задание</button>
+            </div>
+            <div class="quest-card">
+                <h3 class="quest-title">Доставка посылки</h3>
+                <p>Доставьте важную посылку в соседний город.</p>
+                <p class="quest-reward">Награда: 30 золота, +5 рейтинга</p>
+                <button class="accept-button">Принять задание</button>
+            </div>
+            <div class="quest-card">
+                <h3 class="quest-title">Исследование руин</h3>
+                <p>Исследуйте древние руины и принесите артефакт.</p>
+                <p class="quest-reward">Награда: 100 золота, +20 рейтинга</p>
+                <button class="accept-button">Принять задание</button>
+            </div>
+        </div>
+        
+        <div class="members">
+            <h2>Члены гильдии онлайн:</h2>
+            <div class="members-grid">
+                <div class="member-card">
+                    <img src="assets/players/player1.png" alt="Игрок 1">
+                    <p>Альдрик</p>
+                    <p>Уровень: 5</p>
+                </div>
+                <div class="member-card">
+                    <img src="assets/players/player2.png" alt="Игрок 2">
+                    <p>Лиана</p>
+                    <p>Уровень: 7</p>
+                </div>
+                <div class="member-card">
+                    <img src="assets/players/player3.png" alt="Игрок 3">
+                    <p>Горм</p>
+                    <p>Уровень: 4</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Загружаем данные персонажа
+        const gameData = JSON.parse(localStorage.getItem('gameData'));
+        
+        if (!gameData || !gameData.character) {
+            // Если данных нет, возвращаемся к созданию персонажа
+            window.location.href = 'index.html';
+        }
+
+        // Отображаем иконку персонажа
+        const characterIcon = document.getElementById('character-icon');
+        characterIcon.innerHTML = `
+            <img src="assets/player_${gameData.character.gender}.png" alt="${gameData.character.name}">
+            <span>${gameData.character.name}</span>
+        `;
+
+        // Здесь можно добавить логику для заданий гильдии
+        document.querySelectorAll('.accept-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const questTitle = this.parentElement.querySelector('.quest-title').textContent;
+                alert(`Вы приняли задание: ${questTitle}! (Система заданий в разработке)`);
+            });
+        });
+    </script>
+</body>
+</html>

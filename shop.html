@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>БУМЗ - Магазин</title>
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: white;
+            background-image: url('assets/shop_bg.jpg');
+            background-size: cover;
+        }
+        .character-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px; /* Сместили в левый угол */
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px; /* Закругленные углы */
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .character-icon img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px; /* Меньшие закругленные углы для изображения */
+        }
+        .character-icon span {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .back-button {
+            position: absolute;
+            top: 100px;
+            left: 20px;
+            padding: 10px 20px;
+            background: rgba(76, 175, 80, 0.7);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .shop-container {
+            max-width: 800px;
+            margin: 80px auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .shop-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .item-card {
+            background: rgba(50, 50, 50, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .item-card:hover {
+            background: rgba(76, 175, 80, 0.3);
+            transform: translateY(-5px);
+        }
+        .item-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        .item-price {
+            color: gold;
+            font-weight: bold;
+        }
+        .buy-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="location.href='menu.html'">Назад</button>
+    
+    <div class="character-icon" id="character-icon">
+        <!-- Заполняется JavaScript -->
+    </div>
+
+    <div class="shop-container">
+        <h1 class="shop-title">Магазин</h1>
+        <div class="items-grid">
+            <div class="item-card">
+                <img src="assets/items/sword.png" alt="Меч">
+                <h3>Стальной меч</h3>
+                <p class="item-price">100 золота</p>
+                <button class="buy-button">Купить</button>
+            </div>
+            <div class="item-card">
+                <img src="assets/items/shield.png" alt="Щит">
+                <h3>Деревянный щит</h3>
+                <p class="item-price">75 золота</p>
+                <button class="buy-button">Купить</button>
+            </div>
+            <div class="item-card">
+                <img src="assets/items/potion.png" alt="Зелье">
+                <h3>Зелье здоровья</h3>
+                <p class="item-price">30 золота</p>
+                <button class="buy-button">Купить</button>
+            </div>
+            <!-- Добавьте больше предметов по аналогии -->
+        </div>
+    </div>
+
+    <script>
+        // Загружаем данные персонажа
+        const gameData = JSON.parse(localStorage.getItem('gameData'));
+        
+        if (!gameData || !gameData.character) {
+            // Если данных нет, возвращаемся к созданию персонажа
+            window.location.href = 'index.html';
+        }
+
+        // Отображаем иконку персонажа
+        const characterIcon = document.getElementById('character-icon');
+        characterIcon.innerHTML = `
+            <img src="assets/player_${gameData.character.gender}.png" alt="${gameData.character.name}">
+            <span>${gameData.character.name}</span>
+        `;
+    </script>
+</body>
+</html>

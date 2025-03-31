@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>БУМЗ - Главное меню</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff5722;
+            --secondary-color: #4CAF50;
+            --dark-bg: #1a1a2e;
+            --light-text: #ffffff;
+            --dark-text: #333333;
+            --game-width: 800px;
+            --game-height: 600px;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            min-height: 100vh;
+            overflow: hidden;
+            touch-action: manipulation;
+            background-image: url('assets/background.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .character-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
+        }
+        
+        .character-icon img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .character-icon span {
+            margin-left: 10px;
+            margin-right: 10px;
+            font-size: 0.8rem;
+            text-shadow: 2px 2px 0 #000;
+        }
+        
+        .main-menu {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .menu-button {
+            width: 250px;
+            padding: 15px;
+            margin: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: 'Press Start 2P', cursive;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            box-shadow: 0 5px 0 rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 0 #000;
+        }
+        
+        .menu-button:hover {
+            background: #ff7043;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.3);
+        }
+        
+        .menu-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-title {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            text-shadow: 5px 5px 0 #000;
+            color: var(--primary-color);
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 800px) {
+            .game-title {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+            
+            .menu-button {
+                width: 200px;
+                padding: 12px;
+                font-size: 0.8rem;
+            }
+            
+            .character-icon {
+                padding: 8px;
+            }
+            
+            .character-icon img {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .character-icon span {
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="character-icon" id="character-icon">
+        <!-- Заполняется JavaScript -->
+    </div>
+
+    <div class="main-menu">
+        <h1 class="game-title">БУМЗ</h1>
+        <button class="menu-button" onclick="location.href='shop.html'">Магазин</button>
+        <button class="menu-button" onclick="location.href='arena.html'">Арена</button>
+        <button class="menu-button" onclick="location.href='guild.html'">Гильдия</button>
+    </div>
+
+    <script>
+        // Загружаем данные персонажа
+        const gameData = JSON.parse(localStorage.getItem('gameData'));
+        
+        if (!gameData || !gameData.character) {
+            // Если данных нет, возвращаемся к созданию персонажа
+            window.location.href = 'index.html';
+        }
+
+        // Отображаем иконку персонажа
+        const characterIcon = document.getElementById('character-icon');
+        characterIcon.innerHTML = `
+            <img src="assets/player_${gameData.character.gender}.png" alt="${gameData.character.name}">
+            <span>${gameData.character.name}</span>
+        `;
+    </script>
+</body>
+</html>
