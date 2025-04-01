@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>БУМЗ - Загрузка</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/loading.css">
+</head>
+<body>
+    <div class="loading-container">
+        <div class="logo">БУМЗ</div>
+        <div class="subtitle">Боевая Управляемая Морская Забава</div>
+        <div class="loading-bar-container">
+            <div class="loading-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+            <div class="loading-percentage" id="loadingPercentage">0%</div>
+        </div>
+    </div>
+    
+    <button class="skip-button" id="skipButton">Пропустить</button>
+
+    <script src="../js/core/game-storage.js"></script>
+    <script src="../js/pages/loading.js"></script>
+</body>
+</html>

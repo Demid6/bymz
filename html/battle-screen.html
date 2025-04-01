@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worms-like Battle</title>
+    <link rel="stylesheet" href="../css/battle-screen.css">
+</head>
+
+<body>
+    <div class="battle-container">
+        <div class="battle-field">
+            <div class="ground-platforms"></div>
+            <div class="combatant player-combatant">
+                <div class="character-image" id="player-image"></div>
+                <div class="character-info">
+                    <h3 id="player-name"></h3>
+                    <div class="health-bar">
+                        <div class="health" id="player-health"></div>
+                        <span class="health-text" id="player-health-text"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="combatant enemy-combatant">
+                <div class="character-image" id="enemy-image"></div>
+                <div class="character-info">
+                    <h3 id="enemy-name"></h3>
+                    <div class="health-bar">
+                        <div class="health" id="enemy-health"></div>
+                        <span class="health-text" id="enemy-health-text"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="turn-indicator" id="turn-indicator"></div>
+        </div>
+        
+        <div class="battle-controls" id="battle-controls"></div>
+        <div class="battle-log" id="battle-log"></div>
+        <button id="return-to-arena-btn" style="display: none;">Вернуться на арену</button>
+    </div>
+
+    <script src="../js/game-storage.js"></script>
+    <script src="../js/combat-system.js"></script>
+    <script src="../js/battle-screen.js"></script>
+</body>
+</html>

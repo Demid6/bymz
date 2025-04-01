@@ -1,113 +1,116 @@
-.arena-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-}
+/* Добавьте эти стили в ваш arena.css */
 
-.arena-header {
+.battle-layout {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.arena-header h1 {
-    font-size: 2.5rem;
-    color: #f8bb22;
-}
-
-.rooms-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-    margin: 30px 0;
+    width: 100%;
 }
 
-.room-item {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 20px;
+.players-section {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #8B4513;
 }
 
-.room-item h3 {
-    margin-top: 0;
-    color: #f8bb22;
-}
-
-.join-room-btn {
-    padding: 8px 15px;
-    background: #f8bb22;
-    color: #16213e;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.join-room-btn:disabled {
-    background: #666;
-    cursor: not-allowed;
-}
-
-#create-room-btn {
-    padding: 12px 25px;
-    background: #f8bb22;
-    color: #16213e;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-.battle-room {
-    margin-top: 30px;
+.abilities-section {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #8B4513;
 }
 
 .players-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 20px;
-    min-height: 500px;
-    margin-bottom: 30px;
+    gap: 15px;
+    margin-top: 15px;
 }
 
 .player-slot {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    background: rgba(70, 35, 0, 0.7);
+    border: 2px solid #5D2906;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    min-height: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.player-slot.current-player {
-    border: 2px solid #f8bb22;
-}
-
 .player-slot img {
-    width: 150px;
-    height: 200px;
-    object-fit: contain;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #C19A6B;
 }
 
-#start-battle-btn, #leave-room-btn {
-    padding: 12px 25px;
-    margin: 0 10px;
-    border: none;
-    border-radius: 5px;
+.player-slot.current-player {
+    border-color: #FFD700;
+    box-shadow: 0 0 10px #FFD700;
+}
+
+.abilities-selection {
+    margin-top: 20px;
+}
+
+.selected-abilities {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.ability-slot {
+    width: 60px;
+    height: 60px;
+    border: 2px dashed #8B4513;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    font-weight: bold;
-    font-size: 1.1rem;
+    background: rgba(70, 35, 0, 0.3);
 }
 
-#start-battle-btn {
-    background: #4CAF50;
-    color: white;
+.ability-slot.filled {
+    border: 2px solid #C19A6B;
+    background: rgba(70, 35, 0, 0.7);
 }
 
-#leave-room-btn {
-    background: #f44336;
-    color: white;
+.available-abilities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.ability-item {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #8B4513;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    background: rgba(70, 35, 0, 0.7);
+    font-size: 20px;
+}
+
+.ability-item:hover {
+    transform: scale(1.1);
+    border-color: #C19A6B;
+}
+
+.battle-button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
 }

@@ -1,0 +1,345 @@
+/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
+    background: #222;
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+.battle-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Поле боя */
+.battle-field {
+    position: relative;
+    height: 500px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border: 5px solid #5D2906;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #87CEEB, #1E90FF);
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.3);
+}
+
+/* Платформы */
+.ground-platforms {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40%;
+    z-index: 2;
+}
+
+.platform {
+    position: absolute;
+    background: linear-gradient(to bottom, #8B4513, #A0522D);
+    border: 3px solid #5D2906;
+    border-radius: 15px;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Персонажи */
+.combatant {
+    position: absolute;
+    width: 200px;
+    text-align: center;
+    transition: all 0.3s;
+    z-index: 3;
+}
+
+.player-combatant {
+    bottom: 100px;
+    left: 100px;
+}
+
+.enemy-combatant {
+    bottom: 100px;
+    right: 100px;
+}
+
+.character-image {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 4px solid #C19A6B;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s;
+}
+
+.player-combatant .character-image {
+    border-color: #4CAF50;
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+}
+
+.enemy-combatant .character-image {
+    border-color: #F44336;
+    box-shadow: 0 0 20px rgba(244, 67, 54, 0.5);
+}
+
+/* Анимации атак */
+@keyframes playerAttack {
+    0% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(50px) translateY(-20px); }
+    100% { transform: translateX(0) translateY(0); }
+}
+
+@keyframes enemyAttack {
+    0% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(-50px) translateY(-20px); }
+    100% { transform: translateX(0) translateY(0); }
+}
+
+.character-image.attacking {
+    animation: playerAttack 0.5s;
+}
+
+.enemy-combatant .character-image.attacking {
+    animation: enemyAttack 0.5s;
+}
+
+/* Снаряды */
+.projectile {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    z-index: 4;
+    transform-origin: center;
+    will-change: transform;
+}
+
+.projectile.standard {
+    background: radial-gradient(circle, #FF9800, #FF5722);
+    box-shadow: 0 0 10px #FF5722;
+}
+
+.projectile.critical {
+    background: radial-gradient(circle, #FFEB3B, #FF5722);
+    box-shadow: 0 0 15px #FF5722;
+}
+
+.projectile.defensive {
+    background: radial-gradient(circle, #2196F3, #0D47A1);
+    box-shadow: 0 0 10px #2196F3;
+}
+
+.projectile.enemy {
+    background: radial-gradient(circle, #F44336, #B71C1C);
+    box-shadow: 0 0 10px #F44336;
+}
+
+/* Эффекты */
+.hit-effect {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #FF5722, transparent 70%);
+    z-index: 5;
+    animation: hitExpand 0.5s ease-out forwards;
+}
+
+@keyframes hitExpand {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+.explosion {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, #FF9800, #FF5722, transparent 70%);
+    border-radius: 50%;
+    animation: explosion 0.5s ease-out forwards;
+    z-index: 10;
+}
+
+@keyframes explosion {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+}
+
+.heal-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(76, 175, 80, 0.5), transparent 70%);
+    z-index: 2;
+    animation: healPulse 1s ease-out;
+}
+
+@keyframes healPulse {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Полосы здоровья */
+.health-bar {
+    width: 100%;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.health {
+    height: 100%;
+    transition: width 0.5s ease;
+}
+
+.player-combatant .health {
+    background: linear-gradient(to right, #4CAF50, #2E7D32);
+}
+
+.enemy-combatant .health {
+    background: linear-gradient(to right, #F44336, #B71C1C);
+}
+
+.health.critical {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Журнал боя */
+.battle-log {
+    max-height: 150px;
+    overflow-y: auto;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    color: white;
+}
+
+.log-entry {
+    padding: 5px 0;
+    margin: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.log-entry.victory {
+    color: #FFD700;
+    font-weight: bold;
+}
+
+.log-entry.defeat {
+    color: #F44336;
+    font-weight: bold;
+}
+
+.log-entry.heal {
+    color: #81C784;
+}
+
+/* Прицеливание */
+#aim-indicator {
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    width: 100px;
+    height: 2px;
+    background: red;
+    transform-origin: left center;
+    z-index: 10;
+    display: none;
+}
+
+#power-bar {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    width: 100px;
+    display: none;
+    z-index: 10;
+}
+
+.power-container {
+    width: 100%;
+    height: 10px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.power-level {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, #4CAF50, #FFEB3B, #F44336);
+    transition: width 0.1s;
+}
+
+#aim-help {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    background: rgba(0,0,0,0.7);
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    display: none;
+}
+
+#aim-help p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* Кнопки */
+.ability-btn {
+    padding: 8px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background: #444;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.ability-btn:hover {
+    background: #555;
+}
+
+.ability-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#return-to-arena-btn {
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#return-to-arena-btn:hover {
+    background: #45a049;
+}
+
+/* Индикатор хода */
+.turn-indicator {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 15px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 20px;
+    z-index: 10;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+    <div class="profile-container">
+        <h2 id="player-name"></h2>
+        <p id="player-gender"></p>
+        <button id="back-btn">В меню</button>
+    </div>
+
+    <script src="../js/core/game-storage.js"></script>
+    <script>
+        const player = GameStorage.getCurrentPlayer();
+        
+        document.getElementById('player-name').textContent = player.username;
+        document.getElementById('player-gender').textContent = `Пол: ${player.gender === 'male' ? 'Мужской' : 'Женский'}`;
+        
+        document.getElementById('back-btn').addEventListener('click', () => {
+            window.location.href = '../html/main-menu.html';
+        });
+    </script>
+</body>
+</html>

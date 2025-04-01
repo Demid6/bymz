@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Выбор персонажа</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/gender.css">
+</head>
+<body>
+    <div class="wooden-beam"></div>
+    <div class="gender-container">
+        <h1 id="welcome-message">Выберите свой облик</h1>
+        
+        <div class="gender-options">
+            <div class="gender-option" data-gender="male">
+                <img src="../assets/images/player_male.png" alt="Мужской персонаж">
+                <button id="male-btn" class="gender-select-btn">Воин</button>
+            </div>
+            
+            <div class="gender-option" data-gender="female">
+                <img src="../assets/images/player_female.png" alt="Женский персонаж">
+                <button id="female-btn" class="gender-select-btn">Воительница</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/core/game-storage.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const player = GameStorage.getCurrentPlayer();
+            
+            if (!player) {
+                window.location.href = '../html/login.html';
+                return;
+            }
+
+            if (player.username) {
+                document.getElementById('welcome-message').textContent = 
+                    `${player.username}, выберите свой облик`;
+            }
+
+            document.getElementById('male-btn').addEventListener('click', () => {
+                player.gender = 'male';
+                player.image = '../assets/images/player_male.png';
+                GameStorage.savePlayer(player);
+                GameStorage.setCurrentPlayer(player);
+                window.location.href = '../html/main-menu.html';
+            });
+            
+            document.getElementById('female-btn').addEventListener('click', () => {
+                player.gender = 'female';
+                player.image = '../assets/images/player_female.png';
+                GameStorage.savePlayer(player);
+                GameStorage.setCurrentPlayer(player);
+                window.location.href = '../html/main-menu.html';
+            });
+        });
+    </script>
+</body>
+</html>

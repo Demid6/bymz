@@ -1,0 +1,175 @@
+/* Основные стили */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'MedievalSharp', cursive;
+    background: 
+        url('../assets/images/background_taverna.png') center/cover no-repeat,
+        radial-gradient(circle at center, rgba(27, 15, 7, 0.7), rgba(10, 5, 2, 0.9));
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #e3c29d;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Декоративные элементы */
+.gender-container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    z-index: 10;
+    background: linear-gradient(to bottom, rgba(45, 22, 11, 0.9), rgba(166, 123, 91, 0.9));
+    border: 8px solid #5c3a21;
+    box-shadow: 
+        0 0 40px rgba(255, 153, 51, 0.7),
+        inset 0 0 30px rgba(139, 69, 19, 0.5);
+    border-radius: 15px;
+    padding: 40px 30px;
+    backdrop-filter: blur(3px);
+}
+
+.gender-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #ffcc99;
+    text-shadow: 
+        0 0 10px rgba(255, 204, 153, 0.8),
+        0 0 20px rgba(255, 153, 51, 0.5);
+    letter-spacing: 2px;
+}
+
+.gender-options {
+    display: flex;
+    justify-content: space-around;
+    margin: 40px 0;
+    gap: 30px;
+}
+
+.gender-option {
+    flex: 1;
+    background: rgba(60, 30, 15, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #8b4513;
+    box-shadow: 
+        inset 0 0 20px rgba(139, 69, 19, 0.3),
+        0 0 30px rgba(139, 69, 19, 0.3);
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.gender-option:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 10px 25px rgba(210, 168, 84, 0.4),
+        inset 0 0 20px rgba(210, 168, 84, 0.2);
+    border-color: #d2a854;
+}
+
+.gender-option::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(210, 168, 84, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.gender-option:hover::after {
+    opacity: 1;
+}
+
+.gender-option img {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+    transition: all 0.3s;
+}
+
+.gender-option:hover img {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 15px rgba(255, 204, 153, 0.7));
+}
+
+.gender-option button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: linear-gradient(to bottom, #b87333, #8b4513);
+    color: #f5ebdc;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    border: 1px solid #3a2c1a;
+    letter-spacing: 1px;
+}
+
+.gender-option button:hover {
+    background: linear-gradient(to bottom, #e6772e, #c05917);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 12px rgba(0, 0, 0, 0.4),
+        0 0 15px rgba(255, 153, 51, 0.5);
+}
+
+/* Анимации */
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 15px rgba(210, 168, 84, 0.5); }
+    50% { box-shadow: 0 0 30px rgba(255, 204, 153, 0.8); }
+}
+
+.gender-option.selected {
+    animation: pulse-glow 2s infinite;
+    border: 2px solid #d2a854;
+}
+
+/* Деревянные балки (как в основном дизайне) */
+.wooden-beam {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to bottom, #3a2c1a, #1a1208);
+    top: 0;
+    left: 0;
+    box-shadow: 
+        inset 0 -5px 10px rgba(0, 0, 0, 0.5),
+        0 5px 15px rgba(0, 0, 0, 0.7);
+    z-index: 5;
+}
+
+.wooden-beam.bottom {
+    top: auto;
+    bottom: 0;
+    height: 30px;
+}
+
+/* Эффект выбора */
+.selection-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 204, 153, 0.4), transparent 70%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s;
+}
+
+.gender-option:hover .selection-effect {
+    opacity: 1;
+}

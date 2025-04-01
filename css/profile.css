@@ -1,0 +1,161 @@
+/* Существующие стили... */
+
+/* Аватар с анимацией */
+.player-avatar {
+    transition: transform 0.3s;
+}
+
+.player-avatar.avatar-change {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+/* Прогресс уровня */
+.level-progress-container {
+    margin: 10px 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.level-progress-bar {
+    height: 100%;
+    background-color: #e6c229;
+    width: 0;
+    transition: width 0.5s;
+}
+
+.exp-info {
+    font-size: 0.9em;
+    color: #aaa;
+    text-align: right;
+}
+
+/* История боев */
+.battle-history {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.battle-history li {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.battle-won {
+    background-color: rgba(0, 255, 0, 0.1);
+    border-left: 3px solid #6bff6b;
+}
+
+.battle-lost {
+    background-color: rgba(255, 0, 0, 0.1);
+    border-left: 3px solid #ff6b6b;
+}
+
+.battle-result {
+    font-weight: bold;
+    width: 80px;
+}
+
+.battle-opponent {
+    flex-grow: 1;
+    padding: 0 10px;
+}
+
+.battle-date {
+    color: #aaa;
+    font-size: 0.9em;
+    width: 80px;
+    text-align: right;
+}
+
+.battle-reward {
+    width: 80px;
+    text-align: right;
+    color: #e6c229;
+}
+
+/* Инвентарь с кнопками */
+.inventory-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.item-name {
+    flex-grow: 1;
+}
+
+.item-name.equipped {
+    color: #e6c229;
+    font-weight: bold;
+}
+
+.item-type {
+    width: 100px;
+    color: #aaa;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.item-actions {
+    display: flex;
+    gap: 5px;
+    width: 250px;
+    justify-content: flex-end;
+}
+
+.item-actions button {
+    padding: 5px 10px;
+    font-size: 0.8em;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.equip-btn {
+    background-color: #3a5f0f;
+    color: white;
+}
+
+.use-btn {
+    background-color: #0f3a5f;
+    color: white;
+}
+
+.sell-btn {
+    background-color: #5f0f3a;
+    color: white;
+}
+
+/* Сообщения */
+.message {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.message.success {
+    background-color: rgba(0, 255, 0, 0.2);
+    color: #6bff6b;
+}
+
+.message.info {
+    background-color: rgba(0, 0, 255, 0.2);
+    color: #6b6bff;
+}
+
+.message.error {
+    background-color: rgba(255, 0, 0, 0.2);
+    color: #ff6b6b;
+}

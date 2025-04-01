@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>БУМЗ - Подготовка к бою</title>
+    <link rel="stylesheet" href="../css/battle-intro.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=MedievalSharp&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="battle-intro-container">
+        <div class="battle-intro-content">
+            <h1>⚔️ ПРЕДСТОЯЩИЙ БОЙ ⚔️</h1>
+            
+            <div class="teams-container">
+                <div class="team team-allies">
+                    <h2>Ваша команда</h2>
+                    <div class="team-members" id="allies-team">
+                        <!-- Союзники будут добавлены через JS -->
+                    </div>
+                </div>
+                
+                <div class="vs-circle">VS</div>
+                
+                <div class="team team-enemies">
+                    <h2>Противники</h2>
+                    <div class="team-members" id="enemies-team">
+                        <!-- Враги будут добавлены через JS -->
+                    </div>
+                </div>
+            </div>
+            
+            <button id="start-battle-btn" class="battle-button">
+                НАЧАТЬ БОЙ
+            </button>
+        </div>
+    </div>
+
+    <script src="../js/pages/battle-intro.js"></script>
+</body>
+</html>

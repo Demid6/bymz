@@ -1,0 +1,111 @@
+.battle-intro-container {
+    background: url('../assets/images/battle-intro-bg.jpg') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Cinzel', serif;
+    color: white;
+    text-align: center;
+}
+
+.battle-intro-content {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border: 5px solid #8B4513;
+    border-radius: 10px;
+    max-width: 800px;
+}
+
+.battle-intro-content h1 {
+    color: #FFD700;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px #000;
+}
+
+.teams-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.team {
+    flex: 1;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.team-allies {
+    border: 3px solid #4CAF50;
+}
+
+.team-enemies {
+    border: 3px solid #F44336;
+}
+
+.vs-circle {
+    width: 80px;
+    height: 80px;
+    background: #8B4513;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFD700;
+    border: 4px solid #FFD700;
+    margin: 0 20px;
+}
+
+.team-members {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.team-member {
+    background: rgba(70, 35, 0, 0.7);
+    border-radius: 8px;
+    padding: 10px;
+    width: 120px;
+}
+
+.team-member-image {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 3px solid #C19A6B;
+    background-size: cover;
+    background-position: center;
+}
+
+.team-allies .team-member-image {
+    border-color: #4CAF50;
+}
+
+.team-enemies .team-member-image {
+    border-color: #F44336;
+}
+
+.battle-button {
+    padding: 15px 30px;
+    background: linear-gradient(to bottom, #8B4513, #5D2906);
+    border: 3px solid #C19A6B;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.battle-button:hover {
+    background: linear-gradient(to bottom, #9B5513, #6D3906);
+    transform: scale(1.05);
+}

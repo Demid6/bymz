@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>БУМЗ - Арена</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/arena.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=MedievalSharp&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wooden-beam"></div>
+    <div class="arena-container">
+        <header class="arena-header">
+            <h1>Арена</h1>
+            <button id="arena-back-btn" class="back-button">
+                ← Назад в меню
+            </button>
+        </header>
+        
+        <div class="arena-content">
+            <div class="arena-rooms" id="rooms-container">
+                <h2>Выберите комнату</h2>
+                <div class="rooms-list" id="rooms-list">
+                    <!-- Комнаты будут загружены через JS -->
+                </div>
+                <button id="create-room-btn" class="arena-button">
+                    🏰 Создать комнату
+                </button>
+            </div>
+            
+            <div class="battle-room" id="battle-room" style="display: none;">
+                <div class="players-grid">
+                    <div class="player-slot" id="player-slot-1"></div>
+                    <div class="player-slot" id="player-slot-2"></div>
+                    <div class="player-slot" id="player-slot-3"></div>
+                    <div class="player-slot" id="player-slot-4"></div>
+                </div>
+                
+                <div class="battle-controls">
+                    <button id="start-battle-btn" class="arena-button battle-button">
+                        ⚔️ Начать битву
+                    </button>
+                    <button id="leave-room-btn" class="arena-button secondary">
+                        🏃 Покинуть комнату
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/core/game-storage.js"></script>
+    <script src="../js/pages/arena.js"></script>
+    <script src="../js/core/combat-system.js"></script>
+</body>
+</html>

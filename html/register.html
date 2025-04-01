@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>БУМЗ - Регистрация</title>
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <!-- Форма регистрации -->
+        <button id="register-btn">Создать персонажа</button>
+    </div>
+
+    <script src="../js/core/game-storage.js"></script>
+    <script>
+        document.getElementById('register-btn').addEventListener('click', () => {
+            const newPlayer = GameStorage.initializeNewPlayer("Новый игрок", "пароль123");
+            GameStorage.setCurrentPlayer(newPlayer);
+            window.location.href = '../html/gender-select.html';
+        });
+    </script>
+</body>
+</html>

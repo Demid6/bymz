@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>БУМЗ - Вход</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="logo">БУМЗ</div>
+        <div class="subtitle">Вход в кают-компанию</div>
+        
+        <div class="auth-form">
+            <div class="input-group">
+                <label for="username">Имя капитана</label>
+                <input type="text" id="username" placeholder="Введите имя" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" placeholder="Введите пароль" required>
+            </div>
+            
+            <div id="auth-message" class="message"></div>
+            
+            <div class="button-group">
+                <button id="login-btn" class="button">Войти</button>
+                <button id="register-btn" class="button secondary">Регистрация</button>
+                <button id="back-btn" class="button secondary">Назад</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/core/game-storage.js"></script>
+    <script src="../js/pages/auth.js"></script>
+</body>
+</html>

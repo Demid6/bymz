@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главное меню</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/menu.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=MedievalSharp&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wooden-beam"></div>
+    <div class="menu-container">
+        <h1 id="welcome-text">Добро пожаловать</h1>
+        
+        <div class="menu-buttons">
+            <button id="profile-btn" class="menu-button">
+                <img src="../assets/icons/profile.png" alt="">
+                Профиль
+            </button>
+            <button id="arena-btn" class="menu-button">
+                <img src="../assets/icons/swords.png" alt="">
+                Арена
+            </button>
+            <button id="shop-btn" class="menu-button">
+                <img src="../assets/icons/coins.png" alt="">
+                Магазин
+            </button>
+            <button id="guild-btn" class="menu-button">
+                <img src="../assets/icons/shield.png" alt="">
+                Гильдия
+            </button>
+            <button id="logout-btn" class="menu-button secondary">
+                <img src="../assets/icons/exit.png" alt="">
+                Выйти
+            </button>
+        </div>
+    </div>
+
+    <script src="../js/core/game-storage.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const player = GameStorage.getCurrentPlayer();
+            
+            if (!player) {
+                window.location.href = '../html/login.html';
+                return;
+            }
+            
+            document.getElementById('welcome-text').textContent = `Добро пожаловать, ${player.username}`;
+            
+            document.getElementById('profile-btn').addEventListener('click', () => {
+                window.location.href = '../html/profile.html';
+            });
+            
+            document.getElementById('arena-btn').addEventListener('click', () => {
+                window.location.href = '../html/arena.html';
+            });
+            
+            document.getElementById('shop-btn').addEventListener('click', () => {
+                window.location.href = '../html/shop.html';
+            });
+            
+            document.getElementById('guild-btn').addEventListener('click', () => {
+                window.location.href = '../html/guild.html';
+            });
+            
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                GameStorage.clearCurrentPlayer();
+                window.location.href = '../html/index.html';
+            });
+        });
+    </script>
+</body>
+</html>
